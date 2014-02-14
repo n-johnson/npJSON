@@ -1,0 +1,15 @@
+{
+  "name": "npJSON",
+  "description": "npJSON: 'Node.JS Persistant JSON' storage.",
+  "version": "0.0.1",
+  "author": {
+    "name": "Nathan Johson",
+    "email": "nodejs@njohnson.me"
+  },
+  "dependencies": {
+  },
+  "repositories": {
+    "type": "git",
+    "url": "https://github.com/n-johnson/npJSON.git"
+  }
+}
