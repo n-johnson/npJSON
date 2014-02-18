@@ -1,5 +1,5 @@
 /*!
- * npJSON v0.0.1
+ * npJSON v1.0.0
  * Author: Nathan Johnson <node@njohnson.me>
  * License: MIT Licensed
  *

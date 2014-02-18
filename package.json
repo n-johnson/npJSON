@@ -1,7 +1,7 @@
 {
   "name": "npJSON",
   "description": "npJSON: 'Node.JS Persistant JSON' storage.",
-  "version": "0.0.1",
+  "version": "v1.0.0",
   "author": {
     "name": "Nathan Johson",
     "email": "nodejs@njohnson.me"
