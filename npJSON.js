@@ -11,12 +11,10 @@ var fs = require("fs");
 /**
  * [npJSON]
  * @param  {[string]} fileName [file where data is stored]
- * @param  {[boolean]} justRead [OPTIONAL: If true, will close data stream after data is loaded.]
  */
-var npJSON = function(fileName, justRead) {
+var npJSON = function(fileName) {
 	if(typeof fileName === 'undefined' || fileName === '')
 		throw "ERROR: filename given to npJSON was empty.";
-	this.justRead = justRead || false;
 	this.fileName = fileName;
 	this.loaded = false;
 	this._writeLock = true; //writeLock until data is loaded in _loadData()
@@ -35,10 +33,7 @@ npJSON.prototype._initialize = function() {
 		fs.writeSync(tempFile,tempBuffer,0,2,0);
 		fs.closeSync(tempFile);
 	}
-	if(this.justRead)
-		this.storageFile = fs.openSync(this.fileName, "r"); //r+ = Reading and writing | Open files, whether new or old
-	else
-		this.storageFile = fs.openSync(this.fileName, "r+"); //r+ = Reading and writing | Open files, whether new or old
+		this.storageFile = fs.readFileSync(this.fileName); //Syncronous because we DO want this to be a blocking event.
 };
 
 /**
@@ -59,8 +54,7 @@ npJSON.prototype._readFile = function() {
 		filePosition += bytesToRead;
 	}
 	var rData = fileContents.toString('utf8', 0, this.fileSize);
-	if(this.justRead)
-		this.close();
+
 	return rData;
 };
 
@@ -141,10 +135,6 @@ npJSON.prototype.removeValue = function(key) {
 		throw "ERROR: npJSON.removeValue() was called before any data was loaded.";
 	delete this._rawObject[key];
 	this._writeFile(this._rawObject); //Write it to file
-};
-
-npJSON.prototype.close = function() {
-	fs.closeSync(this.storageFile);
 };
 
 module.exports = function(fileName) {
